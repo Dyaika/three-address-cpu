@@ -1,0 +1,42 @@
+# CMake build directory
+cmake-build-*/
+
+# CMake build/system files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+build.ninja
+cmake.check_cache
+CMakeConfigureLog.yaml
+
+# CLion files
+.idea/
+*.iml
+
+# Qt Creator/Qt
+*.user
+*.pro.user
+*.qbs.user
+*.user.*
+*.moc
+moc_*
+*.obj
+*.qmlc
+*.qrc
+
+# Binary and object files
+*.o
+*.obj
+*.so
+*.dll
+*.dylib
+*.exe
+*.out
+*.a
+
+# Logs, caches, temp
+*.log
+*.tmp
+Testing/
