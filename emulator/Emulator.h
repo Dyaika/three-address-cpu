@@ -14,7 +14,7 @@ private:
     uint32_t dmem[MEM_SIZE];  // Память данных
     uint32_t registers[NUM_REGISTERS];
     uint32_t pc;
-    uint32_t ir;
+    uint32_t cmd;
     uint32_t flags;
 
 public:
@@ -31,9 +31,9 @@ public:
     uint32_t getPC() const;
 
     // returns ?? register
-    uint32_t getIR() const;
+    uint32_t getCMD() const;
 
-    // returns flags
+    // returns flags (00..000[CF][OF][SF][ZF])
     uint32_t getFlags() const;
 
     // starts infinite loop
