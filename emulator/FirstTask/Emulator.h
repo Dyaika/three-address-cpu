@@ -1,18 +1,17 @@
 #ifndef EMULATOR_LIBRARY_H
 #define EMULATOR_LIBRARY_H
-#include <vector>
-#include <array>
 #include <cstdint>
+#include <string>
 
 class Emulator {
 public:
-    static const int MEM_SIZE = 1024;
-    static const int NUM_REGISTERS = 16;
+    static const int MEM_SIZE = 64;
+    static const int REG_SIZE = 4;
 
 private:
-    uint32_t cmem[MEM_SIZE];  // Память команд
-    uint32_t dmem[MEM_SIZE];  // Память данных
-    uint32_t registers[NUM_REGISTERS];
+    uint32_t cmem[MEM_SIZE];
+    uint32_t dmem[MEM_SIZE];
+    uint32_t registers[REG_SIZE];
     uint32_t pc;
     uint32_t cmd;
     uint32_t flags;
@@ -20,9 +19,14 @@ private:
 public:
     Emulator();
 
+    // loads data to memory
     void loadData(const uint32_t data[]);
 
+    // loads program to memory as binary code
     void loadProgram(const uint32_t program[]);
+
+    // loads program to memory as assembler commands
+    void loadProgram(const std::string program[]);
 
     // returns register by id
     uint32_t getRegister(int id) const;
@@ -30,11 +34,8 @@ public:
     // returns program counter
     uint32_t getPC() const;
 
-    // returns ?? register
+    // returns current command
     uint32_t getCMD() const;
-
-    // returns flags (00..000[CF][OF][SF][ZF])
-    uint32_t getFlags() const;
 
     // starts infinite loop
     void run();
