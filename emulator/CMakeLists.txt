@@ -3,5 +3,12 @@ project(emulator)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_library(emulator STATIC Emulator.cpp
+add_executable(app
+        FirstTask/Emulator.cpp
+        FirstTask/ConsoleApp.cpp
+)
+
+add_library(emulator
+        FirstTask/Emulator.cpp
+        FirstTask/ConsoleApp.cpp
 )
