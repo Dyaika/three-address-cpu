@@ -54,7 +54,7 @@ int main() {
         emulator.step();
         if (emulator.getCMD() >> 29 == 6) {
 
-            std::cout << std::endl << "--------END OF PROGRAMM--------" << std::endl;
+            std::cout << std::endl << "--------END OF PROGRAM--------" << std::endl;
             std::cout << "max=" << emulator.getRegister(3) << std::endl;
             return 0;
         }
