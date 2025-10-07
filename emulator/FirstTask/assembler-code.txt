@@ -1,0 +1,35 @@
+// записать n
+LTR 5, R0
+LTR 0, R1
+RTM [R1], R0
+
+// записать массив
+ADDL 1, R1, R1
+LTR 6, R0
+RTM [R1], R0
+ADDL 1, R1, R1
+LTR 2, R0
+RTM [R1], R0
+ADDL 1, R1, R1
+LTR 1, R0
+RTM [R1], R0
+ADDL 1, R1, R1
+LTR 8, R0
+RTM [R1], R0
+ADDL 1, R1, R1
+LTR 3, R0
+RTM [R1], R0
+
+//программа
+LTR 0, R0
+MTR R1, [R0]
+LTR 1, R2
+MTR R3, [R2]
+l1:
+ADDL 1, R0, R0
+MTR R2, [R0]
+JIL l2, R2, R3
+RTR R3, R2
+l2:
+JIL l1, R0, R1
+END
