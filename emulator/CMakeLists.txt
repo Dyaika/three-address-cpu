@@ -4,11 +4,13 @@ project(emulator)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(app
-        FirstTask/Emulator.cpp
-        FirstTask/ConsoleApp.cpp
+        Emulator/Emulator.cpp
+        FirstTask/FirstTask.cpp
+        ConsoleApp.cpp
+        Emulator/Commands.h
 )
 
 add_library(emulator
-        FirstTask/Emulator.cpp
-        FirstTask/ConsoleApp.cpp
+        Emulator/Emulator.cpp
+        Emulator/Commands.h
 )

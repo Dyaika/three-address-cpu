@@ -1,0 +1,18 @@
+#ifndef COMMANDS_H
+#define COMMANDS_H
+class Commands
+{
+public:
+    static const int LTR = 0;
+    static const int RTM = 1;
+    static const int ADDL = 2;
+    static const int MTR = 3;
+    static const int JIL = 4;
+    static const int RTR = 5;
+    static const int ADD = 6;
+    static const int JINO = 7;
+    static const int MUL = 8;
+    static const int END = 9;
+};
+
+#endif //COMMANDS_H

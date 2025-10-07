@@ -1,14 +1,7 @@
 #include "Emulator.h"
+#include "Commands.h"
 
-#define LTR 0
-#define RTM 1
-#define ADDL 2
-#define MTR 3
-#define JIL 4
-#define RTR 5
-#define END 6
-
-Emulator::Emulator(): pc(0), cmd(0), flags(0) {
+Emulator::Emulator(): pc(0), cmd(0), overflowFlag(false) {
     // init memory here
     for (int i = 0; i < REG_SIZE; i++) {
         registers[i] = 0;
@@ -19,32 +12,37 @@ Emulator::Emulator(): pc(0), cmd(0), flags(0) {
     }
 }
 
-void Emulator::loadData(const uint32_t data[]) {
-    for (int i = 0; i < MEM_SIZE; ++i) {
+void Emulator::loadData(const unsigned short data[], int n) {
+    for (int i = 0; i < n; ++i) {
         dmem[i] = data[i];
     }
 }
 
-void Emulator::loadProgram(const uint32_t program[]) {
+void Emulator::loadProgram(const unsigned int program[], int n) {
     for (int i = 0; i < MEM_SIZE; ++i) {
         cmem[i] = program[i];
     }
 }
 
-uint32_t Emulator::getRegister(int id) const {
+unsigned short Emulator::getRegister(const int id) const {
     return registers[id];
 }
 
-uint32_t Emulator::getPC() const {
+unsigned short Emulator::getPC() const {
     return pc;
 }
 
-uint32_t Emulator::getCMD() const {
+unsigned int Emulator::getCMD() const {
     return cmem[pc];
 }
 
+bool Emulator::getOverflowFlag() const
+{
+    return overflowFlag;
+}
+
 void Emulator::run() {
-    while (1) {
+    while (true) {
         step();
     }
 }
@@ -52,46 +50,47 @@ void Emulator::run() {
 void Emulator::step() {
     cmd = cmem[pc];
 
-    // 31-29 cmdtype (3 bit)
-    // 28-6 literal  (23 bit)
-    // 5-4 dest      (2 bit)
-    // 3-2 op1       (2 bit)
-    // 1-0 op2       (2 bit)
-    const uint32_t cmd_type = cmd >> 29;
-    const uint32_t literal = cmd << 3 >> 9;
-    const uint32_t dest = cmd << 26 >> 30;
-    const uint32_t op1 = cmd << 28 >> 30;
-    const uint32_t op2 = cmd << 30 >> 30;
+    // 31-28 cmdtype (4 bit)
+    // empty 3 bits
+    // 24-9 literal  (16 bit)
+    // 8-6 dest      (3 bit)
+    // 5-3 op1       (3 bit)
+    // 2-0 op2       (3 bit)
+    const unsigned short cmd_type = cmd >> 28 & 0xF;
+    const unsigned short literal = cmd  >> 9 & 0xFFFF;
+    const unsigned short dest = cmd >> 6 & 0x7;
+    const unsigned short op1 = cmd >> 3 & 0x7;
+    const unsigned short op2 = cmd & 0x7;
 
     switch (cmd_type) {
-        case LTR:
+        case Commands::LTR:
             registers[dest] = literal;
             pc++;
             break;
-        case RTM:
+        case Commands::RTM:
             dmem[registers[dest]] = registers[op1];
             pc++;
             break;
-        case ADDL:
+        case Commands::ADDL:
             registers[dest] = registers[op1] + literal;
             pc++;
             break;
-        case MTR:
+        case Commands::MTR:
             registers[dest] = dmem[registers[op1]];
             pc++;
             break;
-        case JIL:
+        case Commands::JIL:
             if (registers[op1] < registers[op2]) {
                 pc = literal;
             } else {
                 pc++;
             }
             break;
-        case RTR:
+        case Commands::RTR:
             registers[dest] = registers[op1];
             pc++;
             break;
-        case END:
+        case Commands::END:
             break;
         default:
             pc++;
