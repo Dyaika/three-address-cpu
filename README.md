@@ -10,9 +10,8 @@
 | 4 | JIL | jump if less | значение |  | регистр | регистр |
 | 5 | RTR | register to register |  | регистр | регистр |  |
 | 6 | ADD | add | - | регистр | регистр | регистр |
-| 7 | JINO | jump if not overload | значение |  |  |  |
-| 8 | MUL | multiply | - | регистр, младшие | регистр, op1 и переполнение | регистр, op2 |
-| 9 | END | end of program |  |  |  |  |
+| 7 | MUL | multiply | - | регистр, младшие | регистр, op1 и переполнение | регистр, op2 |
+| 8 | END | end of program |  |  |  |  |
 
 ## Задача 1. Поиск максимума в массиве
 ### Блок-схема
@@ -85,10 +84,8 @@ flowchart TD
     H --> J[читать element1
     читать element2]
     J --> K[multiplication = elemen1 * element2]
-    K --> K1[переполнения не было?]
-    K1 -- нет (было) --> Q[over_sum = over_sum + overload]
-    Q --> P1
-    K1 -- да -->  P1[sum = sum + multiplication]
+    K --> Q[over_sum = over_sum + overload]
+    Q --> P1[sum = sum + multiplication]
     P1 -->P[id1 < n]
     P -- да --> G
     P -- нет --> N[Конец]

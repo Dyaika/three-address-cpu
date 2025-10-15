@@ -10,9 +10,8 @@ public:
     static const int JIL = 4;
     static const int RTR = 5;
     static const int ADD = 6;
-    static const int JINO = 7;
-    static const int MUL = 8;
-    static const int END = 9;
+    static const int MUL = 7;
+    static const int END = 8;
 };
 
 #endif //COMMANDS_H
