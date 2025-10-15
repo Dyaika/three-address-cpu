@@ -6,8 +6,9 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(app
         Emulator/Emulator.cpp
         FirstTask/FirstTask.cpp
-        ConsoleApp.cpp
         Emulator/Commands.h
+        SecondTask/SecondTask.cpp
+        ConsoleApp.cpp
 )
 
 add_library(emulator

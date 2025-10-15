@@ -1,6 +1,6 @@
-#include "FirstTask/FirstTask.cpp"
+#include "SecondTask/SecondTask.cpp"
 
 int main()
 {
-    FirstTask::RunInConsole();
+    SecondTask::RunInConsole();
 }
