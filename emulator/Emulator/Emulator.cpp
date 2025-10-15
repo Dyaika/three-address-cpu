@@ -61,39 +61,55 @@ void Emulator::step() {
     const unsigned short dest = cmd >> 6 & 0x7;
     const unsigned short op1 = cmd >> 3 & 0x7;
     const unsigned short op2 = cmd & 0x7;
+    unsigned int multiplication;
 
-    switch (cmd_type) {
-        case Commands::LTR:
-            registers[dest] = literal;
+
+    switch (cmd_type)
+    {
+    case Commands::LTR:
+        registers[dest] = literal;
+        pc++;
+        break;
+    case Commands::RTM:
+        dmem[registers[dest]] = registers[op1];
+        pc++;
+        break;
+    case Commands::ADDL:
+        registers[dest] = registers[op1] + literal;
+        pc++;
+        break;
+    case Commands::MTR:
+        registers[dest] = dmem[registers[op1]];
+        pc++;
+        break;
+    case Commands::JIL:
+        if (registers[op1] < registers[op2])
+        {
+            pc = literal;
+        }
+        else
+        {
             pc++;
-            break;
-        case Commands::RTM:
-            dmem[registers[dest]] = registers[op1];
-            pc++;
-            break;
-        case Commands::ADDL:
-            registers[dest] = registers[op1] + literal;
-            pc++;
-            break;
-        case Commands::MTR:
-            registers[dest] = dmem[registers[op1]];
-            pc++;
-            break;
-        case Commands::JIL:
-            if (registers[op1] < registers[op2]) {
-                pc = literal;
-            } else {
-                pc++;
-            }
-            break;
-        case Commands::RTR:
-            registers[dest] = registers[op1];
-            pc++;
-            break;
-        case Commands::END:
-            break;
-        default:
-            pc++;
-            break;
+        }
+        break;
+    case Commands::RTR:
+        registers[dest] = registers[op1];
+        pc++;
+        break;
+    case Commands::ADD:
+        registers[dest] = registers[op1] + registers[op2];
+        pc++;
+        break;
+    case Commands::MUL:
+        multiplication = registers[op1] * registers[op2];
+        registers[dest] = multiplication & 0xFFFF;
+        registers[op1] = multiplication >> 16;
+        pc++;
+        break;
+    case Commands::END:
+        break;
+    default:
+        pc++;
+        break;
     }
 }
