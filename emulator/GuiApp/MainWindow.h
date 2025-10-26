@@ -3,6 +3,8 @@
 
 #include <QWidget>
 
+#include "Emulator.h"
+
 
 QT_BEGIN_NAMESPACE
 
@@ -22,6 +24,20 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    Emulator emulator;
+
+    void initButtons();
+
+    void updateLayout() const;
+
+    void initEmulator();
+
+private slots:
+    void nextStep();
+
+    void loadData();
+
+    void loadCommands();
 };
 
 
