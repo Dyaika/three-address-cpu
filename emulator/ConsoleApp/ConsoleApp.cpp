@@ -1,4 +1,4 @@
-#include "SecondTask/SecondTask.cpp"
+#include "../SecondTask/SecondTask.cpp"
 
 int main()
 {
