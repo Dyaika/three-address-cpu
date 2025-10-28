@@ -150,9 +150,7 @@ flowchart TD
 | 47 | MTR R5, [R1]     | считать element1 в R5                |
 | 48 | MTR R6, [R2]     | считать element2 в R6                |
 | 49 | MUL R6, R5, R6   | multiplication = element1*element2 в R6|
-| 50 | JINO m2          | goto m2 если нет переполнения        |
 | 51 | ADD R4, R4, R5   | over_sum = over_sum + overload       |
-|    | m2:              | вторая метка                         |
 | 52 | ADD R3, R3, R6   | sum = sum + multiplication           |
 | 53 | JIL m1, R1, R0   | goto m1 если id1 < n                 |
 | 54 | END              | конец. Ответ в R3 и R4 (переполнение)|
