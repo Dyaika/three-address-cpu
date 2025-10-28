@@ -1,4 +1,7 @@
 #include "Emulator.h"
+
+#include <unordered_map>
+#include <sstream>
 #include "Commands.h"
 
 Emulator::Emulator(): pc(0), cmd(0), overflowFlag(false) {
@@ -24,6 +27,95 @@ void Emulator::loadProgram(const unsigned int program[], int n) {
     }
 }
 
+void Emulator::loadProgram(const std::string program[], int n) {
+    std::unordered_map<std::string, int> label_dict;
+    int label_count = 0;
+    for (int i = 0; i < n; i++) {
+        if (!program[i].empty() && program[i].back() == ':') {
+            std::string label = program[i].substr(0, program[i].size() - 1);
+            label_dict[label] = i - label_count;
+            label_count++;
+        }
+    }
+    auto *prog = new unsigned int[n - label_count];
+    int id = 0;
+    for (int i = 0; i < n; i++) {
+        if (!program[i].empty() && program[i].back() != ':') {
+            std::string cleaned;
+            // Убираем символы ',', '[', ']', 'R'
+            for (char ch : program[i]) {
+                if (ch != ',' && ch != '[' && ch != ']') {
+                    cleaned += ch;
+                }
+            }
+
+            std::string parts[5];
+            std::istringstream iss(cleaned);
+            std::string part;
+            int partId = 0;
+            while (iss >> part) {
+                parts[partId] = part;
+                partId++;
+            }
+            int cmd_type = Commands::map(parts[0]);
+            unsigned short literal = 0;
+            unsigned short dest = 0;
+            unsigned short op1 = 0;
+            unsigned short op2 = 0;
+
+            switch (cmd_type)
+            {
+                case Commands::LTR:
+                    literal = stoi(parts[1]);
+                    dest = stoi(parts[2].substr(1));
+                    break;
+                case Commands::RTM:
+                    dest = stoi(parts[1].substr(1));
+                    op1 = stoi(parts[2].substr(1));
+                    break;
+                case Commands::ADDL:
+                    literal = stoi(parts[1]);
+                    dest = stoi(parts[2].substr(1));
+                    op1 = stoi(parts[3].substr(1));
+                    break;
+                case Commands::MTR:
+                    dest = stoi(parts[1].substr(1));
+                    op1 = stoi(parts[2].substr(1));
+                    break;
+                case Commands::JIL:
+                    literal = label_dict[parts[1]];
+                    op1 = stoi(parts[2].substr(1));
+                    op2 = stoi(parts[3].substr(1));
+                    break;
+                case Commands::RTR:
+                    dest = stoi(parts[1].substr(1));
+                    op1 = stoi(parts[2].substr(1));
+                    break;
+                case Commands::ADD:
+                    dest = stoi(parts[1].substr(1));
+                    op1 = stoi(parts[2].substr(1));
+                    op2 = stoi(parts[3].substr(1));
+                    break;
+                case Commands::MUL:
+                    dest = stoi(parts[1].substr(1));
+                    op1 = stoi(parts[2].substr(1));
+                    op2 = stoi(parts[3].substr(1));
+                    break;
+                case Commands::END:
+                    break;
+                default:
+                    cmd_type = Commands::END;
+                    break;
+            }
+            const unsigned int command = (cmd_type << 28) + (literal << 9) + (dest << 6) + (op1 << 3) + op2;
+            prog[id] = command;
+            id++;
+        }
+    }
+    loadProgram(prog, id);
+    delete[] prog;
+}
+
 unsigned short Emulator::getRegister(const int id) const {
     return registers[id];
 }
@@ -42,7 +134,7 @@ bool Emulator::getOverflowFlag() const
 }
 
 void Emulator::run() {
-    while (true) {
+    while ((getCMD() >> 28 & 0xF) != Commands::END) {
         step();
     }
 }

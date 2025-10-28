@@ -365,7 +365,14 @@
       <item>
        <widget class="QPushButton" name="NextButton">
         <property name="text">
-         <string>Next</string>
+         <string>Next Step</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="RunButton">
+        <property name="text">
+         <string>Run</string>
         </property>
        </widget>
       </item>
