@@ -30,9 +30,13 @@ private:
 
     void updateLayout() const;
 
+    void showResults();
+
     void initEmulator();
 
 private slots:
+    void runProgram();
+
     void nextStep();
 
     void loadData();
