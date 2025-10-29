@@ -113,7 +113,20 @@ void MainWindow::loadCommands() {
         const std::string value = lines[i].toStdString();
         commands[i] = value;
     }
-    emulator.loadProgram(commands, count);
+    try
+    {
+        emulator.loadProgram(commands, count);
+    }
+    catch (...)
+    {
+        initEmulator();
+        QMessageBox::information(
+        this,
+        tr("Failed."),
+        tr("Error while parsing program."),
+        QMessageBox::Ok
+    );
+    }
 }
 
 void MainWindow::initEmulator() {

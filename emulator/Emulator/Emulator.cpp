@@ -4,7 +4,7 @@
 #include <sstream>
 #include "Commands.h"
 
-Emulator::Emulator(): pc(0), cmd(0), overflowFlag(false) {
+Emulator::Emulator(): pc(0) {
     // init memory here
     for (int i = 0; i < REG_SIZE; i++) {
         registers[i] = 0;
@@ -128,11 +128,6 @@ unsigned int Emulator::getCMD() const {
     return cmem[pc];
 }
 
-bool Emulator::getOverflowFlag() const
-{
-    return overflowFlag;
-}
-
 void Emulator::run() {
     while ((getCMD() >> 28 & 0xF) != Commands::END) {
         step();
@@ -140,7 +135,7 @@ void Emulator::run() {
 }
 
 void Emulator::step() {
-    cmd = cmem[pc];
+    unsigned int cmd = cmem[pc];
 
     // 31-28 cmdtype (4 bit)
     // empty 3 bits
