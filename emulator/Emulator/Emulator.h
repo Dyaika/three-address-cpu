@@ -12,8 +12,7 @@ private:
     unsigned short dmem[MEM_SIZE];
     unsigned short registers[REG_SIZE];
     unsigned short pc;
-    unsigned int cmd;
-    bool overflowFlag;
+    unsigned short carry_flag;
 
 public:
     Emulator();
@@ -24,7 +23,7 @@ public:
     // loads program to memory as binary code
     void loadProgram(const unsigned int program[], int n);
 
-    // loads program to memory as assembler commands TODO: implement
+    // loads program to memory as assembler commands
     void loadProgram(const std::string program[], int n);
 
     // returns register by id
@@ -36,8 +35,8 @@ public:
     // returns current command
     unsigned int getCMD() const;
 
-    // was overflow on the last operation
-    bool getOverflowFlag() const;
+    // returns carry flag
+    unsigned short getCarryFlag() const;
 
     // starts infinite loop
     void run();

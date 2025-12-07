@@ -19,6 +19,7 @@ void MainWindow::initButtons() {
     connect(ui->CommandsButton, &QPushButton::clicked, this, &MainWindow::loadCommands);
     connect(ui->DataButton, &QPushButton::clicked, this, &MainWindow::loadData);
     connect(ui->NextButton, &QPushButton::clicked, this, &MainWindow::nextStep);
+    connect(ui->RunButton, &QPushButton::clicked, this, &MainWindow::runProgram);
 }
 
 
@@ -35,6 +36,12 @@ void MainWindow::updateLayout() const {
     ui->RHex_CMD->setText(QString("%1").arg(cmd, 8, 16, QLatin1Char('0')).toUpper());
     ui->RDec_CMD->setText(QString::number(cmd));
 
+    // Carry
+    const auto carry = emulator.getCarryFlag();
+    ui->RBin_CARRY->setText(QString("%1").arg(carry, 16, 2, QLatin1Char('0')));
+    ui->RHex_CARRY->setText(QString("%1").arg(carry, 4, 16, QLatin1Char('0')).toUpper());
+    ui->RDec_CARRY->setText(QString::number(carry));
+
     // REGISTERS (R0...R7)
     for (int i = 0; i < Emulator::REG_SIZE; ++i) {
         const auto reg = emulator.getRegister(i);
@@ -47,26 +54,30 @@ void MainWindow::updateLayout() const {
     }
 }
 
+void MainWindow::showResults() {
+    unsigned int firstTaskResult = emulator.getRegister(3);
+    unsigned int secondTaskResult = 0;
+    secondTaskResult += emulator.getRegister(4);
+    secondTaskResult = secondTaskResult << 16;
+    secondTaskResult += emulator.getRegister(3);
+
+    QMessageBox::information(
+        this,
+        tr("Execution completed."),
+        tr("<b>Results of emulation:</b><br><br>"
+            "First task: %1<br>"
+            "Second task: %2")
+        .arg(firstTaskResult)
+        .arg(secondTaskResult),
+        QMessageBox::Ok
+    );
+}
+
 void MainWindow::nextStep() {
     emulator.step();
     updateLayout();
     if (emulator.getCMD() >> 28 == Commands::END) {
-        unsigned int firstTaskResult = emulator.getRegister(3);
-        unsigned int secondTaskResult = 0;
-        secondTaskResult += emulator.getRegister(4);
-        secondTaskResult = secondTaskResult << 16;
-        secondTaskResult += emulator.getRegister(3);
-
-        QMessageBox::information(
-            this,
-            tr("Execution completed."),
-            tr("<b>Results of emulation:</b><br><br>"
-                "First task: %1<br>"
-                "Second task: %2")
-            .arg(firstTaskResult)
-            .arg(secondTaskResult),
-            QMessageBox::Ok
-        );
+        showResults();
     }
 }
 
@@ -96,7 +107,7 @@ void MainWindow::loadCommands() {
         initEmulator();
     }
 
-    const QString text = ui->DataTextEdit->toPlainText();
+    const QString text = ui->CommandsTextEdit->toPlainText();
     static const QRegularExpression lineBreaks("[\r\n]+");
     QStringList lines = text.split(lineBreaks, Qt::SkipEmptyParts);
 
@@ -108,29 +119,29 @@ void MainWindow::loadCommands() {
         const std::string value = lines[i].toStdString();
         commands[i] = value;
     }
-    // emulator.loadProgram(commands, count);
-
-    // temporary decision
-    auto *prog = new unsigned int[15];
-    prog[0] = (0 << 28) + (0 << 9) + (0 << 6);
-    prog[1] = (3 << 28) + (0 << 9) + (0 << 6) + (0 << 3) + 0;
-    prog[2] = (0 << 28) + (0 << 9) + (1 << 6) + (0 << 3) + 0;
-    prog[3] = (5 << 28) + (0 << 9) + (2 << 6) + (0 << 3) + 0;
-    prog[4] = (0 << 28) + (0 << 9) + (3 << 6) + (0 << 3) + 0;
-    prog[5] = (0 << 28) + (0 << 9) + (4 << 6) + (0 << 3) + 0;
-    prog[6] = (2 << 28) + (1 << 9) + (1 << 6) + (1 << 3) + 0;
-    prog[7] = (2 << 28) + (1 << 9) + (2 << 6) + (2 << 3) + 0;
-    prog[8] = (3 << 28) + (0 << 9) + (5 << 6) + (1 << 3) + 0;
-    prog[9] = (3 << 28) + (0 << 9) + (6 << 6) + (2 << 3) + 0;
-    prog[10] = (7 << 28) + (0 << 9) + (6 << 6) + (5 << 3) + 6;
-    prog[11] = (6 << 28) + (0 << 9) + (4 << 6) + (4 << 3) + 5;
-    prog[12] = (6 << 28) + (0 << 9) + (3 << 6) + (3 << 3) + 6;
-    prog[13] = (4 << 28) + (6 << 9) + (0 << 6) + (1 << 3) + 0;
-    prog[14] = (8 << 28);
-    emulator.loadProgram(prog, 15);
+    try
+    {
+        emulator.loadProgram(commands, count);
+    }
+    catch (...)
+    {
+        initEmulator();
+        QMessageBox::information(
+        this,
+        tr("Failed."),
+        tr("Error while parsing program."),
+        QMessageBox::Ok
+    );
+    }
 }
 
 void MainWindow::initEmulator() {
     emulator = Emulator();
     updateLayout();
+}
+
+void MainWindow::runProgram() {
+    emulator.run();
+    updateLayout();
+    showResults();
 }

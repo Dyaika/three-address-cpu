@@ -12,6 +12,22 @@ public:
     static const int ADD = 6;
     static const int MUL = 7;
     static const int END = 8;
+    static const int ADDC = 9;
+
+    static int map(const std::string& cmd) {
+        if (cmd == "LTR") return LTR;
+        if (cmd == "RTM") return RTM;
+        if (cmd == "ADDL") return ADDL;
+        if (cmd == "MTR") return MTR;
+        if (cmd == "JIL") return JIL;
+        if (cmd == "RTR") return RTR;
+        if (cmd == "ADD") return ADD;
+        if (cmd == "MUL") return MUL;
+        if (cmd == "END") return END;
+        if (cmd == "ADDC") return ADDC;
+
+        return -1;
+    }
 };
 
 #endif //COMMANDS_H
