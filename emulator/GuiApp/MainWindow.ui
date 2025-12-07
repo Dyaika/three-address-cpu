@@ -76,24 +76,10 @@
    <item>
     <widget class="QWidget" name="RegistersContainer" native="true">
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="RName_PC">
+      <item row="9" column="3">
+       <widget class="QLabel" name="RDec_6">
         <property name="text">
-         <string>PC</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLabel" name="RBin_PC">
-        <property name="text">
-         <string>000000000000</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="RHex_PC">
-        <property name="text">
-         <string>0000</string>
+         <string>0</string>
         </property>
        </widget>
       </item>
@@ -104,10 +90,17 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="RName_CMD">
+      <item row="1" column="2">
+       <widget class="QLabel" name="RHex_CMD">
         <property name="text">
-         <string>CMD</string>
+         <string>0000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="3">
+       <widget class="QLabel" name="RDec_2">
+        <property name="text">
+         <string>0</string>
         </property>
        </widget>
       </item>
@@ -118,10 +111,129 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
-       <widget class="QLabel" name="RHex_CMD">
+      <item row="11" column="0">
+       <widget class="QLabel" name="RName_7">
+        <property name="text">
+         <string>R7</string>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="2">
+       <widget class="QLabel" name="RHex_7">
         <property name="text">
          <string>0000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLabel" name="RHex_0">
+        <property name="text">
+         <string>0000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="11" column="3">
+       <widget class="QLabel" name="RDec_7">
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="3">
+       <widget class="QLabel" name="RDec_5">
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLabel" name="RBin_0">
+        <property name="text">
+         <string>000000000000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="1">
+       <widget class="QLabel" name="RBin_6">
+        <property name="text">
+         <string>000000000000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="RBin_1">
+        <property name="text">
+         <string>000000000000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="RName_0">
+        <property name="text">
+         <string>R0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="RName_2">
+        <property name="text">
+         <string>R2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="2">
+       <widget class="QLabel" name="RHex_3">
+        <property name="text">
+         <string>0000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="3">
+       <widget class="QLabel" name="RDec_4">
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLabel" name="RBin_2">
+        <property name="text">
+         <string>000000000000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="2">
+       <widget class="QLabel" name="RHex_4">
+        <property name="text">
+         <string>0000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="RName_PC">
+        <property name="text">
+         <string>PC</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QLabel" name="RDec_0">
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="2">
+       <widget class="QLabel" name="RHex_6">
+        <property name="text">
+         <string>0000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="RName_3">
+        <property name="text">
+         <string>R3</string>
         </property>
        </widget>
       </item>
@@ -132,225 +244,141 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="RName_0">
-        <property name="text">
-         <string>R0</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLabel" name="RBin_0">
-        <property name="text">
-         <string>000000000000</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QLabel" name="RHex_0">
-        <property name="text">
-         <string>0000</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="3">
-       <widget class="QLabel" name="RDec_0">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="RName_1">
-        <property name="text">
-         <string>R1</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLabel" name="RBin_1">
-        <property name="text">
-         <string>000000000000</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="2">
-       <widget class="QLabel" name="RHex_1">
-        <property name="text">
-         <string>0000</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="3">
-       <widget class="QLabel" name="RDec_1">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="RName_2">
-        <property name="text">
-         <string>R2</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="1">
-       <widget class="QLabel" name="RBin_2">
-        <property name="text">
-         <string>000000000000</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="2">
-       <widget class="QLabel" name="RHex_2">
-        <property name="text">
-         <string>0000</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="3">
-       <widget class="QLabel" name="RDec_2">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="RName_3">
-        <property name="text">
-         <string>R3</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QLabel" name="RBin_3">
-        <property name="text">
-         <string>000000000000</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="2">
-       <widget class="QLabel" name="RHex_3">
-        <property name="text">
-         <string>0000</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="3">
-       <widget class="QLabel" name="RDec_3">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="RName_4">
-        <property name="text">
-         <string>R4</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="1">
-       <widget class="QLabel" name="RBin_4">
-        <property name="text">
-         <string>000000000000</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="2">
-       <widget class="QLabel" name="RHex_4">
-        <property name="text">
-         <string>0000</string>
-        </property>
-       </widget>
-      </item>
-      <item row="6" column="3">
-       <widget class="QLabel" name="RDec_4">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="0">
+      <item row="8" column="0">
        <widget class="QLabel" name="RName_5">
         <property name="text">
          <string>R5</string>
         </property>
        </widget>
       </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="RName_1">
+        <property name="text">
+         <string>R1</string>
+        </property>
+       </widget>
+      </item>
       <item row="7" column="1">
-       <widget class="QLabel" name="RBin_5">
+       <widget class="QLabel" name="RBin_4">
         <property name="text">
          <string>000000000000</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="2">
-       <widget class="QLabel" name="RHex_5">
+      <item row="6" column="1">
+       <widget class="QLabel" name="RBin_3">
         <property name="text">
-         <string>0000</string>
+         <string>000000000000</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="3">
-       <widget class="QLabel" name="RDec_5">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
-      </item>
-      <item row="8" column="0">
+      <item row="9" column="0">
        <widget class="QLabel" name="RName_6">
         <property name="text">
          <string>R6</string>
         </property>
        </widget>
       </item>
-      <item row="8" column="1">
-       <widget class="QLabel" name="RBin_6">
+      <item row="0" column="1">
+       <widget class="QLabel" name="RBin_PC">
         <property name="text">
          <string>000000000000</string>
         </property>
        </widget>
       </item>
-      <item row="8" column="2">
-       <widget class="QLabel" name="RHex_6">
+      <item row="4" column="2">
+       <widget class="QLabel" name="RHex_1">
         <property name="text">
          <string>0000</string>
         </property>
        </widget>
       </item>
-      <item row="8" column="3">
-       <widget class="QLabel" name="RDec_6">
+      <item row="0" column="2">
+       <widget class="QLabel" name="RHex_PC">
+        <property name="text">
+         <string>0000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="1">
+       <widget class="QLabel" name="RBin_5">
+        <property name="text">
+         <string>000000000000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="RName_4">
+        <property name="text">
+         <string>R4</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="RName_CMD">
+        <property name="text">
+         <string>CMD</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="3">
+       <widget class="QLabel" name="RDec_3">
         <property name="text">
          <string>0</string>
         </property>
        </widget>
       </item>
-      <item row="9" column="0">
-       <widget class="QLabel" name="RName_7">
-        <property name="text">
-         <string>R7</string>
-        </property>
-       </widget>
-      </item>
-      <item row="9" column="1">
+      <item row="11" column="1">
        <widget class="QLabel" name="RBin_7">
         <property name="text">
          <string>000000000000</string>
         </property>
        </widget>
       </item>
-      <item row="9" column="2">
-       <widget class="QLabel" name="RHex_7">
+      <item row="4" column="3">
+       <widget class="QLabel" name="RDec_1">
+        <property name="text">
+         <string>0</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2">
+       <widget class="QLabel" name="RHex_2">
         <property name="text">
          <string>0000</string>
         </property>
        </widget>
       </item>
-      <item row="9" column="3">
-       <widget class="QLabel" name="RDec_7">
+      <item row="8" column="2">
+       <widget class="QLabel" name="RHex_5">
+        <property name="text">
+         <string>0000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="RName_CARRY">
+        <property name="text">
+         <string>CARRY</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="RBin_CARRY">
+        <property name="text">
+         <string>000000000000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="RHex_CARRY">
+        <property name="text">
+         <string>0000</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="RDec_CARRY">
         <property name="text">
          <string>0</string>
         </property>

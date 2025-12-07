@@ -12,6 +12,7 @@ private:
     unsigned short dmem[MEM_SIZE];
     unsigned short registers[REG_SIZE];
     unsigned short pc;
+    unsigned short carry_flag;
 
 public:
     Emulator();
@@ -33,6 +34,9 @@ public:
 
     // returns current command
     unsigned int getCMD() const;
+
+    // returns carry flag
+    unsigned short getCarryFlag() const;
 
     // starts infinite loop
     void run();

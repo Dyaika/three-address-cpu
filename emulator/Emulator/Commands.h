@@ -12,6 +12,7 @@ public:
     static const int ADD = 6;
     static const int MUL = 7;
     static const int END = 8;
+    static const int ADDC = 9;
 
     static int map(const std::string& cmd) {
         if (cmd == "LTR") return LTR;
@@ -23,6 +24,7 @@ public:
         if (cmd == "ADD") return ADD;
         if (cmd == "MUL") return MUL;
         if (cmd == "END") return END;
+        if (cmd == "ADDC") return ADDC;
 
         return -1;
     }

@@ -1,10 +1,13 @@
 #include "Emulator.h"
 
+#include <climits>
+#include <iomanip>
+#include <iostream>
 #include <unordered_map>
 #include <sstream>
 #include "Commands.h"
 
-Emulator::Emulator(): pc(0) {
+Emulator::Emulator(): pc(0), carry_flag(0){
     // init memory here
     for (int i = 0; i < REG_SIZE; i++) {
         registers[i] = 0;
@@ -22,8 +25,12 @@ void Emulator::loadData(const unsigned short data[], int n) {
 }
 
 void Emulator::loadProgram(const unsigned int program[], int n) {
-    for (int i = 0; i < MEM_SIZE; ++i) {
+    for (int i = 0; i < n; ++i) {
         cmem[i] = program[i];
+        std::cout << "0x"
+                  << std::setw(8) << std::setfill('0')
+                  << std::hex << cmem[i]
+                  << std::endl;
     }
 }
 
@@ -101,6 +108,10 @@ void Emulator::loadProgram(const std::string program[], int n) {
                     op1 = stoi(parts[2].substr(1));
                     op2 = stoi(parts[3].substr(1));
                     break;
+                case Commands::ADDC:
+                    dest = stoi(parts[1].substr(1));
+                    op1 = stoi(parts[2].substr(1));
+                    break;
                 case Commands::END:
                     break;
                 default:
@@ -128,6 +139,10 @@ unsigned int Emulator::getCMD() const {
     return cmem[pc];
 }
 
+unsigned short Emulator::getCarryFlag() const {
+    return carry_flag;
+}
+
 void Emulator::run() {
     while ((getCMD() >> 28 & 0xF) != Commands::END) {
         step();
@@ -150,24 +165,33 @@ void Emulator::step() {
     const unsigned short op2 = cmd & 0x7;
     unsigned int multiplication;
 
-
     switch (cmd_type)
     {
     case Commands::LTR:
         registers[dest] = literal;
         pc++;
+        carry_flag = 0;
         break;
     case Commands::RTM:
         dmem[registers[dest]] = registers[op1];
         pc++;
+        carry_flag = 0;
         break;
     case Commands::ADDL:
+        if (registers[op1] + literal > 0xFFFF)
+        {
+            carry_flag = 1;
+        } else
+        {
+            carry_flag = 0;
+        }
         registers[dest] = registers[op1] + literal;
         pc++;
         break;
     case Commands::MTR:
         registers[dest] = dmem[registers[op1]];
         pc++;
+        carry_flag = 0;
         break;
     case Commands::JIL:
         if (registers[op1] < registers[op2])
@@ -178,12 +202,21 @@ void Emulator::step() {
         {
             pc++;
         }
+        carry_flag = 0;
         break;
     case Commands::RTR:
         registers[dest] = registers[op1];
         pc++;
+        carry_flag = 0;
         break;
     case Commands::ADD:
+        if (registers[op1] + registers[op2] > 0xFFFF)
+        {
+            carry_flag = 1;
+        } else
+        {
+            carry_flag = 0;
+        }
         registers[dest] = registers[op1] + registers[op2];
         pc++;
         break;
@@ -192,11 +225,26 @@ void Emulator::step() {
         registers[dest] = multiplication & 0xFFFF;
         registers[op1] = multiplication >> 16;
         pc++;
+        carry_flag = 0;
+        break;
+    case Commands::ADDC:
+        if (registers[op1] + carry_flag > 0xFFFF)
+        {
+            registers[dest] = registers[op1] + carry_flag;
+            carry_flag = 1;
+        } else
+        {
+            registers[dest] = registers[op1] + carry_flag;
+            carry_flag = 0;
+        }
+        pc++;
         break;
     case Commands::END:
+        carry_flag = 0;
         break;
     default:
         pc++;
+        carry_flag = 0;
         break;
     }
 }

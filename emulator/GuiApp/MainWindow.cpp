@@ -36,6 +36,12 @@ void MainWindow::updateLayout() const {
     ui->RHex_CMD->setText(QString("%1").arg(cmd, 8, 16, QLatin1Char('0')).toUpper());
     ui->RDec_CMD->setText(QString::number(cmd));
 
+    // Carry
+    const auto carry = emulator.getCarryFlag();
+    ui->RBin_CARRY->setText(QString("%1").arg(carry, 16, 2, QLatin1Char('0')));
+    ui->RHex_CARRY->setText(QString("%1").arg(carry, 4, 16, QLatin1Char('0')).toUpper());
+    ui->RDec_CARRY->setText(QString::number(carry));
+
     // REGISTERS (R0...R7)
     for (int i = 0; i < Emulator::REG_SIZE; ++i) {
         const auto reg = emulator.getRegister(i);
